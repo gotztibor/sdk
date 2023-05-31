@@ -629,12 +629,14 @@ Copyright (c) .NET Foundation. All rights reserved.
     <ItemGroup>
       <ResolvedFileToPublish Include="@(_SourceItemsToCopyToPublishDirectoryAlways)">
         <RelativePath>%(_SourceItemsToCopyToPublishDirectoryAlways.TargetPath)</RelativePath>
+        <DestinationSubPath>%(_SourceItemsToCopyToPublishDirectoryAlways.NuGetPackageId)/%(_SourceItemsToCopyToPublishDirectoryAlways.NuGetPackageVersion)/%(_SourceItemsToCopyToPublishDirectoryAlways.TargetPath)</DestinationSubPath>
         <CopyToPublishDirectory>Always</CopyToPublishDirectory>
         <IsKeyOutput Condition="'%(_SourceItemsToCopyToPublishDirectoryAlways.FullPath)' == '$(AppHostIntermediatePath)'">True</IsKeyOutput>
       </ResolvedFileToPublish>
 
       <ResolvedFileToPublish Include="@(_SourceItemsToCopyToPublishDirectory)">
         <RelativePath>%(_SourceItemsToCopyToPublishDirectory.TargetPath)</RelativePath>
+        <DestinationSubPath>%(_SourceItemsToCopyToPublishDirectory.NuGetPackageId)/%(_SourceItemsToCopyToPublishDirectory.NuGetPackageVersion)//%(_SourceItemsToCopyToPublishDirectory.TargetPath)</DestinationSubPath>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
         <IsKeyOutput Condition="'%(_SourceItemsToCopyToPublishDirectory.FullPath)' == '$(AppHostIntermediatePath)'">True</IsKeyOutput>
       </ResolvedFileToPublish>
@@ -670,7 +672,7 @@ Copyright (c) .NET Foundation. All rights reserved.
          a non-empty value and the original behavior will be restored. -->
     <PropertyGroup Condition=" '$(MSBuildDisableGetCopyToPublishDirectoryItemsOptimization)' == '' ">
       <_GCTPDIKeepDuplicates>false</_GCTPDIKeepDuplicates>
-      <_GCTPDIKeepMetadata>CopyToPublishDirectory;ExcludeFromSingleFile;TargetPath</_GCTPDIKeepMetadata>
+      <_GCTPDIKeepMetadata>CopyToPublishDirectory;ExcludeFromSingleFile;TargetPath;NuGetPackageId;NuGetPackageVersion</_GCTPDIKeepMetadata>
     </PropertyGroup>
 
     <!-- Get items from child projects first. -->
